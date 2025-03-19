@@ -1,10 +1,17 @@
+
 Stack stack = new Stack(5);
 stack.Push(1);
 stack.Push(2);
 stack.Push(3);
 stack.Push(4);
 stack.DisplayAllElements();
-
+stack.Pop();
+stack.GetTopElement();
+int n = 5;
+stack.UpdateTopElement ( n);
+stack.DisplayAllElements();
+stack.Clear();
+stack.DisplayAllElements();
 
 
 class Stack
@@ -29,7 +36,7 @@ class Stack
     }
     public void Pop()
     {
-        if (top == -1)
+        if (isEmptye())
         {
             Console.WriteLine("Stack is empty");
             return;
@@ -38,17 +45,70 @@ class Stack
     }
     public void DisplayAllElements()
     {
-        if (top == -1)
+        if (isEmptye())
         {
-            Console.WriteLine("Stack is empty");
+            Console.WriteLine("\n"+
+                "Stack is empty");
             return;
         }
         Console.Write("Stack is :{");
         for (int i = top; i >= 0; i--)
         {
-            Console.Write(stack[i]+" ");
+            Console.Write(stack[i] + " ");
         }
         Console.Write("}");
     }
-    
+
+    public void GetTopElement()
+    {
+        if (isEmptye())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+
+        Console.WriteLine($"Top element is {stack[top]}");
+    }
+
+    public void UpdateTopElement( int item)
+    {
+        if (isEmptye())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+        stack[top] = item;
+        
+
+     }
+
+    public void Clear()
+    {
+        if (isEmptye())
+        {
+            Console.WriteLine(" " +
+                "Stack is empty");
+            return;
+        }
+
+        top = -1;
+    }
+
+
+
+
+
+
+        bool isEmptye()
+    {
+        if (top == -1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
+

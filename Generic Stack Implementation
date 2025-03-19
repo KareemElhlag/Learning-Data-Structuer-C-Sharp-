@@ -1,0 +1,98 @@
+Stack<String> s = new Stack<String>(5);
+s.Push("A");
+s.Push("B");
+s.Push("C");
+s.Push("D");
+s.Push("E");
+s.DisplayAllElements();
+s.Pop();
+s.GetTopElement();
+s.UpdateTopElement("Z");
+s.DisplayAllElements();
+
+s.Clear();
+
+
+
+class Stack<T>
+{
+    private T[] stack;
+    private int top;
+    private int max;
+
+    public Stack(int size)
+    {
+        stack = new T[size];
+        top = -1;
+        max = size;
+    }
+
+    public void Push(T item)
+    {
+        if (top == max - 1)
+        {
+            Console.WriteLine("Stack is full");
+            return;
+        }
+        stack[++top] = item;
+    }
+
+    public void Pop()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+        Console.WriteLine($"Item popped is {stack[top--]}");
+    }
+
+    public void DisplayAllElements()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+        Console.Write("Stack is: { ");
+        for (int i = top; i >= 0; i--)
+        {
+            Console.Write(stack[i] + " ");
+        }
+        Console.WriteLine("}");
+    }
+
+    public void GetTopElement()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+        Console.WriteLine($"Top element is {stack[top]}");
+    }
+
+    public void UpdateTopElement(T item)
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+        stack[top] = item;
+    }
+
+    public void Clear()
+    {
+        top = -1;
+        Console.WriteLine("Stack has been cleared.");
+    }
+
+    private bool IsEmpty()
+    {
+        return top == -1;
+    }
+}
+
+
+

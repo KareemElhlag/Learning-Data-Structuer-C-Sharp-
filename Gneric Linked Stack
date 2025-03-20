@@ -1,0 +1,116 @@
+LinkedStack<int> stack = new LinkedStack<int>();
+stack.Push(1);
+stack.Push(2);
+stack.Push(3);
+stack.Push(4);
+stack.DisplayAllElements();
+stack.Pop();
+stack.GetTopElement();
+stack.Pop();
+
+
+
+
+
+#region LinkedStack
+
+public interface IStack<T>
+{
+    void Push(T item);
+    void Pop();
+    T DisplayAllElements();
+    T GetTopElement();
+    void UpdateTopElement(T item);
+    void Clear();
+    bool IsEmpty();
+
+}
+internal class LinkedStack<T> : IStack<T>
+{
+    private class Node
+    {
+        public T Data;
+        public Node Next;
+
+        public Node(T data)
+        {
+            Data = data;
+            Next = null;
+        }
+    }
+
+    private Node top;
+
+    public LinkedStack()
+    {
+        top = null;
+    }
+
+    public void Push(T item)
+    {
+        Node newNode = new Node(item);
+        newNode.Next = top;
+        top = newNode;
+    }
+
+    public void Pop()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+        top = top.Next;
+        
+    }
+
+    public T DisplayAllElements()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return default(T);
+        }
+        Node current = top;
+        while (current != null)
+        {
+            Console.WriteLine(current.Data);
+            current = current.Next;
+        }
+        return default(T);
+    }
+
+    public T GetTopElement()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return default(T);
+        }
+        return top.Data;
+    }
+
+    public void UpdateTopElement(T item)
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("Stack is empty");
+            return;
+        }
+        top.Data = item;
+    }
+
+    public void Clear()
+    {
+        top = null;
+        Console.WriteLine("Stack has been cleared.");
+    }
+
+    public bool IsEmpty()
+    {
+        return top == null;
+    }
+}
+
+
+#endregion

@@ -1,0 +1,84 @@
+#region Balanced Parentheses
+
+Console.WriteLine("Enter the expression:");
+string expression = Console.ReadLine();
+while (string.IsNullOrEmpty(expression))
+{
+    Console.WriteLine("please enter expression");
+     expression = Console.ReadLine();
+}
+Stack<char> stack = new Stack<char>();
+bool arePiar (char open , char close )
+
+{
+    if (open =='('&& close ==')')
+        return true;
+    else if(open == '{' && close == '}')
+        return true;
+    else if (open == '[' && close == ']')
+        return true;
+    else
+        return false;
+
+}
+bool isEmpty()
+{
+    if (stack.Count == 0)
+        return true;
+    else
+        return false;
+}
+bool isBalanced(string expression)
+{
+    char[] exp = expression.ToCharArray();
+    for (int i = 0; i < exp.Length; i++)
+    {
+        if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
+        {
+            stack.Push(exp[i]);
+
+        }
+        else if (exp[i] == ')' || exp[i] == '}' || exp[i] == ']')
+        {
+            if (isEmpty() || !arePiar(stack.Peek(), exp[i]))
+            {
+                return false;
+            }
+            else
+            {
+                stack.Pop();
+            }
+
+
+            }
+    }
+    return isEmpty() ? true : false;
+}
+
+
+
+
+
+
+
+
+if (isBalanced(expression))
+{
+    Console.WriteLine("The expression is balanced");
+}
+else
+{
+    Console.WriteLine("The expression is not balanced");
+}
+
+
+
+
+
+
+
+
+
+
+
+#endregion

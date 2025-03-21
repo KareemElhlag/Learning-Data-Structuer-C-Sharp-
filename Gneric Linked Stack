@@ -1,116 +1,104 @@
 LinkedStack<int> stack = new LinkedStack<int>();
-stack.Push(1);
-stack.Push(2);
-stack.Push(3);
-stack.Push(4);
-stack.DisplayAllElements();
-stack.Pop();
-stack.GetTopElement();
-stack.Pop();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+stack.push(5);
+stack.displayAllElements();
+stack.pop();
+stack.getTopElement();
+stack.pop();
+stack.displayAllElements();
+stack.updateTopElement(5);
+stack.displayAllElements();
+stack.clear();
 
-
-
-
-
-#region LinkedStack
-
-public interface IStack<T>
+class LinkedStack<T>()
 {
-    void Push(T item);
-    void Pop();
-    T DisplayAllElements();
-    T GetTopElement();
-    void UpdateTopElement(T item);
-    void Clear();
-    bool IsEmpty();
-
-}
-internal class LinkedStack<T> : IStack<T>
-{
-    private class Node
+    class node()
     {
-        public T Data;
-        public Node Next;
-
-        public Node(T data)
-        {
-            Data = data;
-            Next = null;
-        }
+       public T item;
+      public  node next;
     }
-
-    private Node top;
-
-    public LinkedStack()
+    node top,cur;
+    public void push (T newItem)
     {
-        top = null;
-    }
-
-    public void Push(T item)
-    {
-        Node newNode = new Node(item);
-        newNode.Next = top;
+        node newNode = new node();
+        newNode.item = newItem;
+        newNode.next = top;
         top = newNode;
     }
 
-    public void Pop()
-    {
-        if (IsEmpty())
+    public void pop() {
+        if (IsEmpyty())
         {
-            Console.WriteLine("Stack is empty");
-            return;
+            Console.WriteLine("Stack is Empty");
         }
-        top = top.Next;
-        
-    }
-
-    public T DisplayAllElements()
-    {
-        if (IsEmpty())
+        else
         {
-            Console.WriteLine("Stack is empty");
-            return default(T);
+            cur = top;
+            top = top.next;
+            Console.WriteLine($"You are Remove :{cur.item}");
+            cur = null;
         }
-        Node current = top;
-        while (current != null)
-        {
-            Console.WriteLine(current.Data);
-            current = current.Next;
+     
         }
-        return default(T);
-    }
-
-    public T GetTopElement()
+    public void displayAllElements()
     {
-        if (IsEmpty())
+        if (IsEmpyty())
         {
-            Console.WriteLine("Stack is empty");
-            return default(T);
+            Console.WriteLine("Stack is Empty");
         }
-        return top.Data;
-    }
-
-    public void UpdateTopElement(T item)
-    {
-        if (IsEmpty())
+        else
         {
-            Console.WriteLine("Stack is empty");
-            return;
+            cur = top;
+            Console.Write("{");
+            while (cur != null)
+            {
+                Console.Write($" {cur.item} ");
+                cur = cur.next;
+            }
+            Console.WriteLine("}");
         }
-        top.Data = item;
-    }
 
-    public void Clear()
+    }
+    public void getTopElement()
     {
-        top = null;
-        Console.WriteLine("Stack has been cleared.");
+        if (IsEmpyty())
+        {
+            Console.WriteLine("Stack is Empty");
+        }
+        else
+        {
+            Console.WriteLine($"Top Element is : {top.item}");
+        }
     }
-
-    public bool IsEmpty()
+    public void updateTopElement(T newItem)
+    {
+        if (IsEmpyty())
+        {
+            Console.WriteLine("Stack is Empty");
+        }
+        else
+        {
+            top.item = newItem;
+            Console.WriteLine($"Top Element is Updated : {top.item}");
+        }
+    }
+    public void clear()
+    {
+        if (IsEmpyty())
+        {
+            Console.WriteLine("Stack is Empty");
+        }
+        else
+        {
+            top = null;
+            Console.WriteLine("Stack is Cleared");
+        }
+    }
+    bool IsEmpyty ()
     {
         return top == null;
     }
 }
-
-
-#endregion

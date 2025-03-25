@@ -1,0 +1,114 @@
+CircualQueue<int> queue = new CircualQueue<int>(6);
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+queue.enqueue(4);
+queue.enqueue(5);
+queue.enqueue(6);
+queue.DisplayAllQueue();
+//Console.WriteLine(queue.peek());
+queue.dequeue();
+queue.enqueue(48);
+queue.DisplayAllQueue();
+
+
+
+
+
+class CircualQueue<T>
+{
+  public  int front, rear, maxLenth , lenth;
+    T[] queue;
+
+    public CircualQueue(int size)
+    {
+        if(size < 0) { maxLenth = 100; }
+        front =0;
+        rear = maxLenth - 1;
+        maxLenth = size;
+        lenth = 0;
+        queue = new T[size];
+    }
+    bool isEmpty()
+    {
+        if (lenth == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool isFull()
+    {
+        if (lenth == maxLenth)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void enqueue(T item) { 
+        if (isFull())  
+        {
+            Console.WriteLine("Queue is full");
+            return;
+        }
+        else
+        {
+            rear= (rear + 1) % maxLenth;
+            queue[rear] = item;
+            lenth++;
+            Console.WriteLine($"✅ Added: {item} | Rear: {rear} | Front: {front} | Length: {lenth}");
+        }
+
+    }
+    
+
+    public void dequeue() {
+        if (!isEmpty())
+        {
+              T i = queue[front];
+
+            Console.WriteLine($"✅ Removed: {i} | Rear: {rear} | Front: {front} | Length: {lenth}");
+
+            front = (front + 1) % maxLenth;
+            -- lenth;
+
+        }
+        else
+        {
+            Console.WriteLine("Queue is Empty");
+            return;
+        }
+    }
+    public void DisplayAllQueue()
+    {
+        if (isEmpty())
+        {
+            Console.WriteLine("Queue is Empty");
+            return;
+        }
+
+        Console.WriteLine("Queue elements:");
+        int index = front;
+        for (int i = 0; i < lenth; i++)
+        {
+            Console.WriteLine(queue[index]);
+            index = (index + 1) % maxLenth;
+        }
+    }
+    public T peek()
+    {
+        if (isEmpty())
+        {
+            throw new InvalidOperationException("Queue is empty");
+        }
+        return  queue[front];
+    }
+
+}
+

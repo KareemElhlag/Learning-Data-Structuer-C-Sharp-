@@ -1,0 +1,106 @@
+#region Linked Queue
+LinkedQueueGeneric<int> queue = new LinkedQueueGeneric<int>();
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+queue.enqueue(4);
+queue.enqueue(5);
+queue.enqueue(6);
+queue.enqueue(7);
+queue.DisplayAllQueue();
+
+Console.WriteLine($"frist Elemant in this Queue is :{queue.peek()}");
+queue.dequeue();
+Console.WriteLine($"frist Elemant in this Queue is :{queue.peek()}");
+
+
+
+
+
+public class LinkedQueueGeneric<T>
+{
+     class node
+    {
+        public T elemant;
+        public node nextNode;
+    }
+
+    int  lenth;
+    node front, rear;
+
+
+   public LinkedQueueGeneric()
+    {
+        
+        lenth = 0;
+        front = null;
+        rear = null;
+    }
+
+    bool isEmpty()
+    {
+        return lenth == 0;
+    }
+    public void enqueue(T item)
+    {
+        node newNode = new node();
+        newNode.elemant = item;
+        newNode.nextNode = null;
+        if (isEmpty())
+        {          
+            front = rear = newNode;
+        }
+        else
+        {
+            rear.nextNode= newNode;
+            rear = newNode;
+        }
+        lenth++;
+
+    }
+
+    public void dequeue() { 
+    
+    if (isEmpty())
+        {
+            Console.WriteLine("Linked Queue is Empty");
+        }
+        else
+        {
+            node temp = front;
+            front = front.nextNode;
+            temp = null;
+            lenth--;
+        }
+    
+    }
+
+    public void DisplayAllQueue()
+    {
+        if (isEmpty())
+        {
+            Console.WriteLine("Linked Queue is Empty");
+        }
+        else
+        {
+            node current = front;
+            while (current != null)
+            {
+                Console.WriteLine(current.elemant);
+                current = current.nextNode;
+            }
+        }
+    }
+
+    public T peek()
+    {
+        if (isEmpty())
+        {
+            throw new InvalidOperationException("Linked Queue is empty");
+        }
+        return front.elemant;
+    }
+
+}
+
+#endregion

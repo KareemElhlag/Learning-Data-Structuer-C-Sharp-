@@ -1,0 +1,100 @@
+#region ArreyBesdListImplemantion
+ArrayList<int> list = new ArrayList<int>(5);
+list.Add(1, 0);
+list.Add(2, 1);
+list.Add(3, 2);
+list.Add(4, 3);
+list.Add(5, 1);
+list.DisplayAll();
+
+list.removeItemByPosition(1);
+
+list.DisplayAll();
+Console.WriteLine($"Length of Array is :{list.count()}");
+
+class ArrayList<T>
+{
+     T item;
+   private int length , maxSize;
+    private T[] array;
+    public ArrayList(int size)
+    {
+        this.length = 0;
+        this.maxSize = size;
+        this.array = new T[size];
+    }
+    
+    bool isEmpty()
+    {
+        return length == 0;
+    }
+    bool isFull() { 
+    return length == maxSize;
+    }
+    public void  Add(T item , int pos) {
+       if (pos > length || pos < 0)
+        {
+            Console.WriteLine("Invalid position");
+            return;
+        }else if(isFull())
+        {
+            Console.WriteLine("Arrey is full");
+            return;
+        }
+        else
+        {
+            for (int i = length; i > pos; i--)
+            {
+                array[i]= array[i-1];
+
+            }
+            array[pos] = item;
+            length++;
+        }
+
+    }
+    public void removeItemByPosition( int pos)
+    {
+        Console.WriteLine("Rmoved item " + array[pos]);
+        if (pos > length || pos < 0)
+        {
+            Console.WriteLine(" Invalid position");
+        }
+        else if (isEmpty())
+        {
+            Console.WriteLine("Arrey is Empty");
+        }
+        else
+        {
+            for (int i = pos; i < length - 1; i++)
+            {
+                array[i] = array[i + 1];
+            }
+            length--;
+        }
+        
+
+        }
+    public int count()
+    {
+        return length;
+    }
+    public void DisplayAll()
+    {
+        if (isEmpty())
+        {
+            Console.WriteLine("Arrey is Empty");
+        }
+        else
+        {
+            for (int i = 0; i < length; i++)
+            {
+                Console.WriteLine(array[i]);
+            }
+        }
+    }
+
+}
+
+
+#endregion

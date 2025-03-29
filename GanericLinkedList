@@ -1,0 +1,122 @@
+#region LinkedList 
+GanericLinkedList<int> list = new GanericLinkedList<int>();
+list.AddByPosition(0, 1);
+list.AddByPosition(1, 2);
+list.AddByPosition(2, 3);
+list.AddByPosition(3, 4);
+list.AddByPosition(4, 5);
+//list.AddByPosition(6, 6); out of range
+list.AddFromFarist(12);
+list.AddFromLast(25);
+list.DisplayAllElemant();
+
+
+
+
+class GanericLinkedList<T>
+{
+    class Node
+    {
+       public T item ;
+       public Node next ;
+
+    }
+    Node head , tail ;
+    int Length;
+
+   public GanericLinkedList()
+    {
+        head = tail = null;
+        Length = 0;
+    }
+    bool isEmpty()
+    {
+        return Length == 0;
+    }
+   public void AddFromFarist(T elemant)
+    {
+        Node newNode = new Node();
+        newNode.item = elemant;
+        if (isEmpty())
+        {
+            head = tail = newNode;
+            Length++;
+        }
+        else
+        {
+            Node temp = head;
+            head = newNode;
+            newNode.next = temp;
+            Length++;
+
+        }
+    }
+
+   public void AddFromLast(T elemant)
+    {
+        Node newNode = new Node();
+        newNode.item = elemant;
+        if (isEmpty())
+        {
+            head = tail = newNode;
+            Length++;
+        }
+        else
+        {
+            tail.next = newNode;
+            tail = newNode;
+            Length++;
+        }
+    }
+
+
+   public void AddByPosition(int pos , T elemant)
+    {
+        Node newNode = new Node();
+        newNode.item = elemant ;
+        if (pos > Length)
+        {
+            Console.WriteLine(" the position is out of range ");
+        }
+        else
+        {
+            if (isEmpty() || pos == 0)
+            {
+                AddFromLast(elemant);
+            }
+            else if (pos == Length)
+            {
+                AddFromLast(elemant);
+            }
+            else
+            {
+                Node Cur = head.next;
+                Node temp;
+                for (int i = 1; i < pos; i++)
+                {
+                    Cur = Cur.next;
+                }
+                temp = Cur.next;
+                Cur.next = newNode;
+                newNode.next = temp;
+                Length++;
+            }
+        }
+    }
+   public void DisplayAllElemant()
+    {
+        Node node = head;
+        while (node != null )
+        {
+            Console.WriteLine($" {node.item}");
+            node = node.next;
+        }
+    }
+}
+
+
+
+
+ 
+#endregion
+

@@ -1,0 +1,246 @@
+#region LinkedList 
+GanericLinkedList<int> list = new GanericLinkedList<int>();
+list.AddByPosition(0, 1);
+list.AddByPosition(1, 2);
+list.AddByPosition(2, 3);
+list.AddByPosition(3, 4);
+list.AddByPosition(4, 5);
+//list.AddByPosition(6, 6); out of range
+list.AddFromFarist(12);
+list.AddFromLast(25);
+//list.ReverseByList();
+list.DisplayAllElemant();
+
+list.Search(5); 
+
+
+
+class GanericLinkedList<T>
+{
+    class Node
+    {
+       public T item ;
+       public Node next ;
+
+    }
+    Node head , tail ;
+    int Length;
+
+   public GanericLinkedList()
+    {
+        head = tail = null;
+        Length = 0;
+    }
+    bool isEmpty()
+    {
+        return Length == 0;
+    }
+   public void AddFromFarist(T elemant)
+    {
+        Node newNode = new Node();
+        newNode.item = elemant;
+        if (isEmpty())
+        {
+            head = tail = newNode;
+            Length++;
+        }
+        else
+        {
+            Node temp = head;
+            head = newNode;
+            newNode.next = temp;
+            Length++;
+
+        }
+    }
+
+   public void AddFromLast(T elemant)
+    {
+        Node newNode = new Node();
+        newNode.item = elemant;
+        if (isEmpty())
+        {
+            head = tail = newNode;
+            Length++;
+        }
+        else
+        {
+            tail.next = newNode;
+            tail = newNode;
+            Length++;
+        }
+    }
+
+
+   public void AddByPosition(int pos , T elemant)
+    {
+        Node newNode = new Node();
+        newNode.item = elemant ;
+        if (pos > Length)
+        {
+            Console.WriteLine(" the position is out of range ");
+        }
+        else
+        {
+            if (isEmpty() || pos == 0)
+            {
+                AddFromLast(elemant);
+            }
+            else if (pos == Length)
+            {
+                AddFromLast(elemant);
+            }
+            else
+            {
+                Node Cur = head.next;
+                Node temp;
+                for (int i = 1; i < pos; i++)
+                {
+                    Cur = Cur.next;
+                }
+                temp = Cur.next;
+                Cur.next = newNode;
+                newNode.next = temp;
+                Length++;
+            }
+        }
+    }
+
+    public void RemoveFromFrist()
+    {
+        if (isEmpty())
+        {
+            Console.WriteLine("List is Empty ");
+            return;
+        }
+        else if (Length == 1)
+        {
+            head = tail = null;
+            Length--;
+        }
+        else
+        {
+            head = head.next;
+            Length--;
+        }
+    }
+
+    public void RemoveFormLast()
+    {
+        if (isEmpty()) {
+            Console.WriteLine("List is Empty "); }
+        else if (Length == 1)
+        {
+            head = tail = null;
+            Length--;
+        }
+        else
+        {
+            Node Cur = head;
+            while (Cur.next != tail)
+            {
+                Cur = Cur.next;
+            }
+            Cur.next = null;
+            tail = Cur;
+            Length--;
+        }
+        
+    }
+    public void RemovebyIndex(int pos)
+    {
+        if (isEmpty())
+        {
+            Console.WriteLine("List is Empty");
+        }
+        else if (Length == pos)
+        {
+            RemoveFormLast();
+        }
+        else if (pos == 0)
+        {
+            RemoveFromFrist();
+        }
+        else
+        {
+            Node Cur = head;
+            for (int i = 1; i < pos; i++)
+            {
+                Cur = Cur.next;
+            }
+            Cur.next = Cur.next.next;
+            Length--;
+        }
+    }
+
+    public void ReverseByPtr()
+    {
+        if (Length >= 2)
+        {
+            Node prev = null;
+            Node curr = head;
+            Node Next = null;
+            while (curr != null)
+            {
+                Next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = Next;
+            }
+            head = prev;
+        }
+        else
+        {
+            Console.WriteLine("the list is too short");
+        }
+    }
+    public void ReverseByList()
+    {
+        GanericLinkedList<T> temp = new GanericLinkedList<T>();
+        Node Cur = head;
+        while (Cur != null)
+        {
+          temp.AddFromFarist(Cur.item);
+            Cur = Cur.next;
+        }
+        head = temp.head;
+        temp.DisplayAllElemant();
+    }
+
+    public void Search(T elemant)
+    {
+        Node cur = head;
+        int index = 0;
+        
+        while (cur != null) 
+        { 
+            if (cur.item.Equals(elemant))
+            {
+
+                Console.WriteLine( "Index of Item is " + index );
+                return;
+            }
+          
+            cur = cur.next;
+            index ++;
+        }
+
+        Console.WriteLine("Item not found");
+    }
+    public void DisplayAllElemant()
+    {
+        Node node = head;
+        while (node != null )
+        {
+            Console.WriteLine($" {node.item}");
+            node = node.next;
+        }
+    }
+}
+
+
+
+
+ 
+#endregion
+

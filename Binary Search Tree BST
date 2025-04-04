@@ -1,0 +1,86 @@
+#region BST
+BinerySearchTree tree = new BinerySearchTree();
+tree.Insert(10);
+tree.Insert(20);
+tree.Insert(30);
+tree.Insert(40);
+tree.InOrderTraversal();
+Console.WriteLine(tree.Search(20));
+
+
+
+
+
+
+class BinerySearchTree
+{
+     class BStreeNode
+    {
+        public int val;
+        public BStreeNode left;
+        public BStreeNode right;
+    }
+
+    private BStreeNode root;
+
+    public void Insert(int data) 
+    {
+        root = InsertItem(root, data);
+    }
+
+    private BStreeNode InsertItem( BStreeNode root , int data )
+    {
+        if (root == null)
+        {
+            root = new BStreeNode();
+            root.val = data;
+            return root;
+        }
+        if (data < root.val)
+        {
+            root.left = InsertItem(root.left, data);
+        }
+        else if (data > root.val)
+        {
+            root.right = InsertItem(root.right, data);
+        }
+        return root;
+
+    }
+
+
+    public bool Search (int data)
+    {
+        return SearchPri(root, data);
+    }
+
+    private bool SearchPri(BStreeNode root, int data) 
+    { if (root == null) { return false; }
+     if (data < root.val)
+        {
+            return true;
+        }
+     
+     return (data < root.val) ? SearchPri(root.left, data) : SearchPri(root.right, data);
+
+    }
+
+
+    public void InOrderTraversal()
+    {
+        InOrder(root);
+    }
+
+    private void InOrder (BStreeNode root)
+    {
+        if (root != null)
+        {
+            InOrder(root.left);
+            Console.WriteLine(root.val + "");
+            InOrder(root.right);
+        }
+        
+    }
+
+}
+#endregion
